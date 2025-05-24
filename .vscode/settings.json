@@ -1,0 +1,9 @@
+{
+  "typescript.experimental.useTsgo": false,
+  "typescript.preferences.autoImportSpecifierExcludeRegexes": [
+    "radix-ui",
+    "next/router",
+    "next/dist",
+    "^lucide-react/dist/lucide-react.suffixed$"
+  ]
+}
