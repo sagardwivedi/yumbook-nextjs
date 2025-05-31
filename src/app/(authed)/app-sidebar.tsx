@@ -17,8 +17,8 @@ import {
   SearchIcon,
   UserIcon,
   VideoIcon,
-  BellIcon,
   ClockIcon,
+  XIcon,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,23 +40,23 @@ const links: LinkProps[] = [
     icon: HomeIcon,
     type: "link",
   },
-  { 
-    href: "/search", 
-    title: "Search", 
-    icon: SearchIcon, 
-    type: "sheet" 
+  {
+    href: "/search",
+    title: "Search",
+    icon: SearchIcon,
+    type: "sheet",
   },
-  { 
-    href: "/explore", 
-    title: "Explore", 
-    icon: CompassIcon, 
-    type: "link" 
+  {
+    href: "/explore",
+    title: "Explore",
+    icon: CompassIcon,
+    type: "link",
   },
-  { 
-    href: "/reels", 
-    title: "Reels", 
-    icon: VideoIcon, 
-    type: "link" 
+  {
+    href: "/reels",
+    title: "Reels",
+    icon: VideoIcon,
+    type: "link",
   },
   {
     href: "/messages",
@@ -70,17 +70,17 @@ const links: LinkProps[] = [
     icon: HeartIcon,
     type: "sheet",
   },
-  { 
-    href: "/create", 
-    title: "Create", 
-    icon: PlusSquareIcon, 
-    type: "dialog" 
+  {
+    href: "/create",
+    title: "Create",
+    icon: PlusSquareIcon,
+    type: "dialog",
   },
-  { 
-    href: "/profile", 
-    title: "Profile", 
-    icon: UserIcon, 
-    type: "link" 
+  {
+    href: "/profile",
+    title: "Profile",
+    icon: UserIcon,
+    type: "link",
   },
 ];
 
@@ -88,38 +88,38 @@ const links: LinkProps[] = [
 const mockNotifications = [
   {
     id: 1,
-    type: 'like',
-    user: 'chef_maria',
-    avatar: '',
-    message: 'liked your pasta recipe',
-    time: '2m ago',
-    read: false
+    type: "like",
+    user: "chef_maria",
+    avatar: "",
+    message: "liked your pasta recipe",
+    time: "2m ago",
+    read: false,
   },
   {
     id: 2,
-    type: 'comment',
-    user: 'foodie_john',
-    avatar: '',
-    message: 'commented on your chocolate cake post',
-    time: '1h ago',
-    read: false
+    type: "comment",
+    user: "foodie_john",
+    avatar: "",
+    message: "commented on your chocolate cake post",
+    time: "1h ago",
+    read: false,
   },
   {
     id: 3,
-    type: 'follow',
-    user: 'baker_sarah',
-    avatar: '',
-    message: 'started following you',
-    time: '3h ago',
-    read: true
-  }
+    type: "follow",
+    user: "baker_sarah",
+    avatar: "",
+    message: "started following you",
+    time: "3h ago",
+    read: true,
+  },
 ];
 
 const mockRecentSearches = [
-  'chocolate chip cookies',
-  'pasta carbonara',
-  'vegan desserts',
-  'quick breakfast ideas'
+  "chocolate chip cookies",
+  "pasta carbonara",
+  "vegan desserts",
+  "quick breakfast ideas",
 ];
 
 export function AppSidebar() {
@@ -140,7 +140,7 @@ export function AppSidebar() {
       {link.href === "/profile" && user?.imageUrl ? (
         <Image
           src={user.imageUrl}
-          alt={`${user.firstName || 'User'}'s profile`}
+          alt={`${user.firstName || "User"}'s profile`}
           width={24}
           height={24}
           className="rounded-full size-6 object-cover flex-shrink-0"
@@ -156,16 +156,21 @@ export function AppSidebar() {
     cn(
       "transition-colors duration-200 gap-4",
       iconOnly ? "size-12 p-0" : "w-full justify-start text-xl px-3 py-2",
-      isActive 
-        ? "bg-secondary text-secondary-foreground" 
+      isActive
+        ? "bg-secondary text-secondary-foreground"
         : "hover:bg-muted hover:text-muted-foreground"
     );
 
   const renderSearchSheet = (link: LinkProps) => {
     const active = isActive(link.href, link.matchExact);
-    
+
     return (
-      <Sheet key={link.href} open={searchSheetOpen} modal={false} onOpenChange={setSearchSheetOpen}>
+      <Sheet
+        key={link.href}
+        open={searchSheetOpen}
+        modal={false}
+        onOpenChange={setSearchSheetOpen}
+      >
         <SheetTrigger asChild>
           <Button
             size={isSheetOpen ? "default" : "lg"}
@@ -184,11 +189,10 @@ export function AppSidebar() {
         <SheetContent
           side="left"
           className="w-[350px] shadow-none ml-20 border-l-0"
-         
         >
           <div className="p-6 space-y-6">
             <h2 className="font-semibold text-xl">Search</h2>
-            
+
             <div className="space-y-4">
               <Input
                 type="text"
@@ -197,7 +201,7 @@ export function AppSidebar() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full"
               />
-              
+
               {!searchQuery ? (
                 <div className="space-y-4">
                   <div>
@@ -207,7 +211,7 @@ export function AppSidebar() {
                     </h3>
                     <div className="space-y-2">
                       {mockRecentSearches.map((search, index) => (
-                        <div 
+                        <div
                           key={index}
                           className="flex items-center justify-between p-2 hover:bg-muted rounded-md cursor-pointer group"
                         >
@@ -220,7 +224,7 @@ export function AppSidebar() {
                             size="sm"
                             className="opacity-0 group-hover:opacity-100 text-xs"
                           >
-                            ×
+                            <XIcon />
                           </Button>
                         </div>
                       ))}
@@ -230,7 +234,8 @@ export function AppSidebar() {
               ) : (
                 <div className="space-y-2">
                   <p className="text-sm text-muted-foreground">
-                    Search results for "{searchQuery}" would appear here...
+                    Search results for &quot;{searchQuery}&quot; would appear
+                    here...
                   </p>
                 </div>
               )}
@@ -243,9 +248,14 @@ export function AppSidebar() {
 
   const renderNotificationsSheet = (link: LinkProps) => {
     const active = isActive(link.href, link.matchExact);
-    
+
     return (
-      <Sheet key={link.href} open={notificationsSheetOpen} modal={false} onOpenChange={setNotificationsSheetOpen}>
+      <Sheet
+        key={link.href}
+        open={notificationsSheetOpen}
+        modal={false}
+        onOpenChange={setNotificationsSheetOpen}
+      >
         <SheetTrigger asChild>
           <Button
             size={isSheetOpen ? "default" : "lg"}
@@ -271,19 +281,22 @@ export function AppSidebar() {
         <SheetContent
           side="left"
           className="w-[380px] shadow-none ml-20 border-l-0"
-          
         >
           <div className="p-6 space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="font-semibold text-xl">Notifications</h2>
-              <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-blue-600 hover:text-blue-700"
+              >
                 Mark all as read
               </Button>
             </div>
-            
+
             <div className="space-y-1">
               {mockNotifications.map((notification) => (
-                <div 
+                <div
                   key={notification.id}
                   className={cn(
                     "flex items-start gap-3 p-3 rounded-lg hover:bg-muted cursor-pointer transition-colors",
@@ -299,11 +312,17 @@ export function AppSidebar() {
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1">
-                      <span className="font-medium text-sm">{notification.user}</span>
-                      <span className="text-sm text-muted-foreground">{notification.message}</span>
+                      <span className="font-medium text-sm">
+                        {notification.user}
+                      </span>
+                      <span className="text-sm text-muted-foreground">
+                        {notification.message}
+                      </span>
                     </div>
                     <div className="flex items-center justify-between mt-1">
-                      <span className="text-xs text-muted-foreground">{notification.time}</span>
+                      <span className="text-xs text-muted-foreground">
+                        {notification.time}
+                      </span>
                       {!notification.read && (
                         <div className="size-2 bg-blue-600 rounded-full"></div>
                       )}
@@ -314,7 +333,10 @@ export function AppSidebar() {
             </div>
 
             <div className="pt-4 border-t">
-              <Button variant="ghost" className="w-full justify-center text-blue-600 hover:text-blue-700">
+              <Button
+                variant="ghost"
+                className="w-full justify-center text-blue-600 hover:text-blue-700"
+              >
                 See all notifications
               </Button>
             </div>
@@ -331,9 +353,13 @@ export function AppSidebar() {
 
   const renderDialogTrigger = (link: LinkProps) => {
     const active = isActive(link.href, link.matchExact);
-    
+
     return (
-      <Dialog key={link.href} open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <Dialog
+        key={link.href}
+        open={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+      >
         <DialogTrigger asChild>
           <Button
             size={isSheetOpen ? "default" : "lg"}
@@ -353,7 +379,9 @@ export function AppSidebar() {
             </p>
             <div className="flex gap-2">
               <Button className="flex-1">Create Post</Button>
-              <Button variant="outline" className="flex-1">Create Recipe</Button>
+              <Button variant="outline" className="flex-1">
+                Create Recipe
+              </Button>
             </div>
           </div>
         </DialogContent>
@@ -363,7 +391,7 @@ export function AppSidebar() {
 
   const renderRegularLink = (link: LinkProps) => {
     const active = isActive(link.href, link.matchExact);
-    
+
     return (
       <Button
         key={link.href}
@@ -374,7 +402,13 @@ export function AppSidebar() {
         aria-label={`Navigate to ${link.title}`}
         onClick={handleCloseSheets}
       >
-        <Link href={link.href} className={cn("flex items-center", isSheetOpen ? "justify-center" : "gap-4")}>
+        <Link
+          href={link.href}
+          className={cn(
+            "flex items-center",
+            isSheetOpen ? "justify-center" : "gap-4"
+          )}
+        >
           {renderLinkContent(link, isSheetOpen)}
         </Link>
       </Button>
@@ -382,7 +416,7 @@ export function AppSidebar() {
   };
 
   return (
-    <aside 
+    <aside
       className={cn(
         "bg-background h-screen border-r flex flex-col transition-all duration-300",
         isSheetOpen ? "w-20 px-2" : "w-[18rem] px-5"
@@ -391,9 +425,14 @@ export function AppSidebar() {
       aria-label="Main navigation"
     >
       {/* Header */}
-      <header className={cn("py-10 transition-all duration-300", isSheetOpen ? "px-0" : "pl-5")}>
-        <Link 
-          href="/home" 
+      <header
+        className={cn(
+          "py-10 transition-all duration-300",
+          isSheetOpen ? "px-0" : "pl-5"
+        )}
+      >
+        <Link
+          href="/home"
           className={cn(
             "flex items-center font-mono hover:opacity-80 transition-opacity",
             isSheetOpen ? "justify-center" : "text-2xl gap-2"
@@ -401,14 +440,25 @@ export function AppSidebar() {
           aria-label="YumBook home"
           onClick={handleCloseSheets}
         >
-          <ChefHatIcon className={cn("transition-all duration-300", isSheetOpen ? "size-6" : "size-8")} />
+          <ChefHatIcon
+            className={cn(
+              "transition-all duration-300",
+              isSheetOpen ? "size-6" : "size-8"
+            )}
+          />
           {!isSheetOpen && <span>YumBook</span>}
         </Link>
       </header>
 
       {/* Navigation Links */}
       <nav className="flex-1 flex flex-col justify-between">
-        <div className={cn("space-y-1.5", isSheetOpen && "flex flex-col items-center")} role="list">
+        <div
+          className={cn(
+            "space-y-1.5",
+            isSheetOpen && "flex flex-col items-center"
+          )}
+          role="list"
+        >
           {links.map((link) => {
             if (link.type === "sheet" && link.href === "/search") {
               return renderSearchSheet(link);
@@ -431,7 +481,7 @@ export function AppSidebar() {
           <div className="pb-6">
             {user && (
               <div className="text-sm text-muted-foreground px-3">
-                Welcome back, {user.firstName || 'Chef'}!
+                Welcome back, {user.firstName || "Chef"}!
               </div>
             )}
           </div>
